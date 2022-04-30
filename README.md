@@ -17,3 +17,5 @@ Password: User@123
 2.   
 Username: anuran2
 Password: User@123
+
+Deployed at: [**Translator @ Heroku**](https://translator-django.herokuapp.com/)
