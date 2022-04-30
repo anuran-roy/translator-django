@@ -34,4 +34,4 @@ tomli
 typing_extensions
 urllib3
 uvicorn
-Wikipedia
+wikipedia-api
