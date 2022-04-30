@@ -7,9 +7,11 @@ import pysbd
 # async
 def parse(to_parse: str = "", lang: str = "") -> List[str]:
     try:
-        seg: List[str] = pysbd.Segmenter(language=lang, clean=False).segment(to_parse)
+        segmented_data: List[str] = pysbd.Segmenter(language=lang, clean=False).segment(
+            to_parse
+        )
 
-        return seg
+        return segmented_data
     except Exception as e:
-        print(e.with_traceback())
+        print(e)
         return "ERROR!"

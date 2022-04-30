@@ -18,6 +18,7 @@ pysbd = "^0.3.4"
 spacy = "^3.2.4"
 uvicorn = "^0.17.6"
 pdoc = "^11.1.0"
+python-dotenv = "^0.20.0"
 
 [tool.poetry.dev-dependencies]
 black = "^22.3.0"

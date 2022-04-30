@@ -1,0 +1,60 @@
+{% extends "partials/with_sidebar.html" %}
+{% block title %}Projects Details: {{project.wiki_title}}{% endblock %}
+{% block sidebar_content %}
+<a href="{% url 'projects' %}" class="font-bold px-3 py-2 hover:bg-gray-700 hover:text-white rounded-md">&lt; Back to List</a>
+<div class="flex flex-col my-3 border-2 px-3 py-1 border-gray-400 rounded-md">
+    <h3 class="font-bold my-1">Language Code Index:</h3>
+    <p class="mx-3">
+        <strong>bn</strong>: Bengali<br />
+        <strong>gu</strong>: Gujarati<br />
+        <strong>hi</strong>: Hindi<br />
+        <strong>kn</strong>: Kannada<br />
+        <strong>ml</strong>: Malayalam<br />
+        <strong>mr</strong>: Marathi<br />
+        <strong>ne</strong>: Nepali<br />
+        <strong>or</strong>: Oriya<br />
+        <strong>pa</strong>: Panjabi<br />
+        <strong>si</strong>: Sinhala<br />
+        <strong>ta</strong>: Tamil<br />
+        <strong>te</strong>: Telugu<br />
+        <strong>ur</strong>: Urdu<br />
+    </p>
+</div>
+{% endblock %}
+{% block main_content %}
+    <div class="">
+        <div class="text-4xl font-bold my-3">
+            Wiki Title: {{ project.wiki_title }}
+        </div>
+        <div class="">
+            Target Language Code: {{ project.target_lang }}
+        </div>
+        <hr />
+        <h2 class="text-2xl font-bold my-3">Sentences:</h2>
+        <div class="w-full flex">
+            <div class="mx-3 my-2 p-3 w-1/2 font-semibold">Original Sentence:</div>
+            <div class="mx-3 my-2 p-3 w-1/2 font-semibold">Translated Sentence:</div>
+        </div>
+        <hr />
+        <form action="modify_translation/" method="POST">
+            {% csrf_token %}
+            {% for i in sentences %}
+                <div class="flex w-full">
+                    <div class="mx-3 my-2 p-3 w-1/2 border-r-2">
+                        {{ i.original_sentence }}
+                    </div>
+                    <div class="mx-3 my-2 p-3 w-1/2">
+                        <textarea
+                            class="border-2 border-gray-400 p-2 w-full px-3 rounded-md"
+                            placeholder="{{ i.translated_sentence }}"
+                            lang="{{project.target_lang}}" name="sentence-{{i.id}}" id="sentence-{{i.id}}"></textarea>
+                    </div>
+                </div>
+            {% endfor %}
+            <button 
+                type="submit"
+                class="px-3 py-2 my-3 text-gray-800 font-bold rounded-xl border-2 bg-white hover:bg-gray-800 hover:text-white"
+            >Submit</button>
+        </form>
+    </div>
+{% endblock %}

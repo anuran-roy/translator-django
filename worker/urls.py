@@ -16,13 +16,26 @@ Including another URLconf
 # from django.contrib import admin
 from django.urls import path
 
+from django.contrib.auth.views import LogoutView
 from . import views
 
 urlpatterns = [
     path("", views.index, name="index"),
     path("translate_sample/", views.translate_sample, name="translate_sample"),
-    path("create_project/", views.create_project, name="create_project"),
-    path("project/<int:pk>/", views.view_project, name="view_project"),
-    path("project/<int:pk>/translate/", views.translate, name="translate"),
-    path("project/<int:pk>/tasks/<int:tasks_pk>", views.view_translation, name="view_translations"),
+    # path("create_project/", views.create_project, name="create_project"),
+    # path("project/<int:pk>/", views.view_project, name="view_project"),
+    path("process/", views.process_input, name="process_input"),
+    path("projects/", views.ListProjects.as_view(), name="projects"),
+    path("projects/new/", views.CreateProject.as_view(), name="create_project"),
+    path(
+        "projects/<int:project_pk>/", views.get_project_details, name="project_details"
+    ),
+    path(
+        "projects/<int:project_pk>/modify_translation/",
+        views.modify_translation,
+        name="modify_translation",
+    ),
+    path("login/", views.UserLogin.as_view(), name="login"),
+    path("logout/", LogoutView.as_view(), name="logout"),
+    # path("project/<int:pk>/tasks/<int:tasks_pk>", views.view_translation, name="view_translations"),
 ]

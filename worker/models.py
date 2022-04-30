@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.timezone import now
+from django.contrib.auth.models import User
 
 choices = (
     ("bn", "Bengali"),
@@ -25,12 +26,18 @@ class Project(models.Model):
     target_lang = models.CharField(max_length=255, choices=choices)
     created_on = models.DateTimeField(auto_now_add=True)
     modified_on = models.DateTimeField(default=now)
+    accessible_to = models.ForeignKey(
+        User, blank=True, null=True, on_delete=models.CASCADE
+    )  # , symmetrical=False)
 
     def __str__(self):
-        return f"Translation of {self.wiki_title} to {self.target_lang}"
+        return f"{self.id} - Translation of {self.wiki_title} to {self.target_lang}"
 
     class Meta:
-        ordering = ("-modified_on", "-created_on")
+        ordering = (
+            "-modified_on",
+            "-created_on",
+        )
 
 
 class Sentence(models.Model):

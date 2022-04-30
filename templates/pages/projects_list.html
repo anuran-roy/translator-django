@@ -1,0 +1,21 @@
+{% extends "partials/with_sidebar.html" %}
+{% block title %}Projects List{% endblock %}
+{% block sidebar_content %}{% endblock %}
+{% block main_content %}
+<div class="w-screen align-items-right my-5">
+    <a class="text-right px-3 py-3 text-gray-800 font-bold rounded-xl border-2 bg-white hover:bg-gray-800 hover:text-white" href="new/">
+        New Project
+    </a>
+</div>
+<hr />
+<div class="flex">
+    {% for i in projects %}
+    <a href="/projects/{{i.id}}/" class="mx-3 my-2">
+        <div class="py-2 px-3 rounded-md border-2 hover:border-r-2 hover:shadow-lg">
+            {{ i.id }}
+            {{ i.wiki_title }}
+        </div>
+    </a>
+    {% endfor %}
+</div>
+{% endblock %}

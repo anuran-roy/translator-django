@@ -11,7 +11,7 @@ import os
 def use_google_translate(src: str = "", to: str = "", sentence: str = "") -> str:
     """
     Uses the Google Translate API in the RapidAPI Marketplace to request the translated version of a sentence using Google Translate, into a particular language.
-    
+
     API Docs at: [**Google Translate - RapidAPI MarketPlace**](https://rapidapi.com/googlecloud/api/google-translate1/)
     """
     API_URL: str = "https://google-translate1.p.rapidapi.com/language/translate/v2"
@@ -23,9 +23,7 @@ def use_google_translate(src: str = "", to: str = "", sentence: str = "") -> str
         "content-type": "application/x-www-form-urlencoded",
         "Accept-Encoding": "application/gzip",
         "X-RapidAPI-Host": "google-translate1.p.rapidapi.com",
-        "X-RapidAPI-Key": os.environ.get(
-            "GOOGLE_TRANSLATE_API_KEY"
-        ),  # "652c570f88msh21c016924e9dbd8p1302bfjsn3880c08385cd",  # "08f9acebcamshe0023f4887789f9p1656fejsnada539d5937e",
+        "X-RapidAPI-Key": os.environ.get("GOOGLE_TRANSLATE_API_KEY"),
     }
     response_data: Dict[str, any] = {}
     try:
@@ -35,7 +33,7 @@ def use_google_translate(src: str = "", to: str = "", sentence: str = "") -> str
 
         translated_text: str = ""
         translated_text = response_data["data"]["translations"][0]["translatedText"]
-        print(translated_text)
+        # print(translated_text)
         return translated_text
 
     except KeyError:
@@ -43,7 +41,7 @@ def use_google_translate(src: str = "", to: str = "", sentence: str = "") -> str
         print("ERROR! Monthly limit reached!")
         return "ERROR!"
     except Exception as e:
-        print(e.with_traceback())
+        print(e)
         return "ERROR!"
 
 
@@ -59,9 +57,7 @@ def use_just_translated(src: str = "", to: str = "", sentence: str = "") -> str:
 
     headers = {
         "X-RapidAPI-Host": "just-translated.p.rapidapi.com",
-        "X-RapidAPI-Key": os.environ.get(
-            "JUST_TRANSLATED_API_KEY"
-        ),  # "652c570f88msh21c016924e9dbd8p1302bfjsn3880c08385cd",
+        "X-RapidAPI-Key": os.environ.get("JUST_TRANSLATED_API_KEY"),
     }
 
     response: Dict[str, any] = {}
@@ -69,16 +65,16 @@ def use_just_translated(src: str = "", to: str = "", sentence: str = "") -> str:
     try:
         response = requests.request("GET", API_URL, headers=headers, params=querystring)
 
-        print(response.text)
+        # print(response.text)
         return json.loads(response.text)["text"][0]
     except KeyError:
         print(response["message"])
         print("ERROR! Monthly limit reached!")
         return "ERROR!"
     except Exception as e:
-        print(e.with_traceback())
+        print(e)
         return "ERROR!"
 
 
 def detect_language(sentence: str) -> str:
-    ...
+    pass

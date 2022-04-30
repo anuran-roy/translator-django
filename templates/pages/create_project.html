@@ -1,0 +1,17 @@
+{% extends "partials/with_sidebar.html" %}
+{% block title %}Create Project{% endblock %}
+{% block sidebar_content %}
+<ul>
+    <li><a href="{% url 'index' %}">View Projects</a></li>
+</ul>
+{% endblock %}
+{% block main_content %}
+    <form method="POST" action="">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button
+            class="px-3 py-2 text-gray-800 font-bold rounded-xl border-2 bg-white hover:bg-gray-800 hover:text-white"
+            type="submit"
+        >Submit</button>
+    </form>
+{% endblock %}

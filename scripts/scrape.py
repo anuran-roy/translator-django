@@ -9,5 +9,6 @@ def scrape_summary(title: str = "") -> str:
         wiki_obj = Wikipedia().page(title)
 
         return wiki_obj.summary
-    except Exception:
+    except Exception as e:
+        print(e)
         return "ERROR!"
