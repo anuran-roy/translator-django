@@ -18,6 +18,7 @@ pathspec
 pdoc
 platformdirs
 pluggy
+psycopg2
 py
 pycodestyle
 pyflakes
