@@ -6,6 +6,9 @@ import pysbd
 # @async_to_sync
 # async
 def parse(to_parse: str = "", lang: str = "") -> List[str]:
+    """
+    Parses the given strings into multiple strings.
+    """
     try:
         segmented_data: List[str] = pysbd.Segmenter(language=lang, clean=False).segment(
             to_parse
