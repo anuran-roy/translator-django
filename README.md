@@ -8,6 +8,15 @@
 - ``projects/new/``: Create a new project
 - ``projects/new/<int:pk>/``: Edit the task sentence translations
   
+## Documentation
+
+Documentation is generated using ``pdoc``. 
+
+To generate documentation, run:
+``pdoc scripts -o docs``
+
+on the terminal
+
 ## Sample users
 
 1.
