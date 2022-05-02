@@ -81,10 +81,10 @@ WSGI_APPLICATION = "translator.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2", # "django.db.backends.sqlite3",
-        'NAME': os.environ.get("DB_NAME"),
-        'USER': os.environ.get("DB_USER"),
-        'PASSWORD': os.environ.get("DB_PASSWORD"),
-        'HOST': os.environ.get("DB_HOST"),
+        'NAME': "d4ig0n45g3be29", # os.environ.get("DB_NAME"),
+        'USER': "jgmtfpzzlaqfka", # os.environ.get("DB_USER"),
+        'PASSWORD': "01f35ffa8c14ac3f461b6cb0b8979fac341e278bed9022e40025d929140e7489", # os.environ.get("DB_PASSWORD"),
+        'HOST': "ec2-3-231-82-226.compute-1.amazonaws.com", # os.environ.get("DB_HOST"),
         'PORT': os.environ.get("DB_PORT"),
     }
 }
