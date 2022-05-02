@@ -16,8 +16,10 @@ import os
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 
+load_dotenv()  # Loading the environment variables
+
 sentry_sdk.init(
-    dsn="https://35f3b36f1eb7444280b91fd458c34a06@o1219465.ingest.sentry.io/6374338",
+    dsn=os.environ.get('SENTRY_DSN'),
     integrations=[DjangoIntegration()],
 
     # Set traces_sample_rate to 1.0 to capture 100%
@@ -30,7 +32,6 @@ sentry_sdk.init(
     send_default_pii=True
 )
 
-load_dotenv()  # Loading the environment variables
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
