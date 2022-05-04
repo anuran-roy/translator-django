@@ -1,0 +1,12 @@
+{% extends "partials/with_sidebar.html" %}
+{% block title %}Delete Project{% endblock %}
+{% block sidebar_content %}
+    <a class="text-gray-800 px-3 py-2 rounded-md hover:bg-gray-800 hover:text-white font-bold" href="../">&lt; Take me back</a>
+{% endblock %}
+{% block main_content %}
+    <form method="POST">
+        {% csrf_token %}
+        <p class="mx-3 my-5 px-3">Are you sure you want to delete "{{ object }}"?</p>
+        <input type="submit" value="Confirm" class="btn bg-red-500 px-3 py-2 rounded-md hover:bg-red-700 text-white font-bold">
+    </form>
+{% endblock %}

@@ -30,6 +30,7 @@ urlpatterns = [
     path(
         "projects/<int:project_pk>/", views.get_project_details, name="project_details"
     ),
+    path("projects/<pk>/delete/", views.DeleteProject.as_view(), name="delete_project"),
     path(
         "projects/<int:project_pk>/modify_translation/",
         views.modify_translation,

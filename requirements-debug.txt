@@ -33,6 +33,7 @@ pytest @ file:///home/anuran/.cache/pypoetry/artifacts/a6/1c/db/e6f5a63ca07ec197
 python-dotenv @ file:///home/anuran/.cache/pypoetry/artifacts/26/7d/fc/00dba3061e0311441e0aa6225a9b3e9bca3485a9fefe7282a4cce094c5/python_dotenv-0.20.0-py3-none-any.whl
 pytz @ file:///home/anuran/.cache/pypoetry/artifacts/fb/60/46/e704d81037c87ab74c6677ae79ab43dda85c31e3ae38f53c44486b593a/pytz-2022.1-py2.py3-none-any.whl
 requests @ file:///home/anuran/.cache/pypoetry/artifacts/ff/f3/bc/a6781f93c2f9488431db494169bb514a083a1d77f3c325a277d8699398/requests-2.27.1-py2.py3-none-any.whl
+sentry-sdk @ file:///home/anuran/.cache/pypoetry/artifacts/11/b1/eb/3309881fe0034e775b489d94f88ff4b5bbb41e41a83cd65eb33596baa8/sentry_sdk-1.5.10-py2.py3-none-any.whl
 sqlparse @ file:///home/anuran/.cache/pypoetry/artifacts/ea/fd/ba/117a876397913faee210ef8bac93829e22ad9232662e656971383c0718/sqlparse-0.4.2-py3-none-any.whl
 tomli @ file:///home/anuran/.cache/pypoetry/artifacts/73/7c/d9/9f2752fc5b05f9176c6f3adc6484be1cec75a68925b8c5fe39d6493a07/tomli-2.0.1-py3-none-any.whl
 typing_extensions @ file:///home/anuran/.cache/pypoetry/artifacts/42/92/dc/6b3758ddcb04f4bd6dd7af2fddeb1de89e3a962846c5221285fa39a33d/typing_extensions-4.2.0-py3-none-any.whl

@@ -23,12 +23,23 @@
 {% endblock %}
 {% block main_content %}
     <div class="">
-        <div class="text-4xl font-bold my-3">
-            Wiki Title: {{ project.wiki_title }}
+        <div class="flex">
+        <div class="w-1/2">
+            <div class="text-4xl font-bold my-3">
+                Wiki Title: {{ project.wiki_title }}
+            </div>
+            <div class="">
+                Target Language Code: {{ project.target_lang }}
+            </div>
         </div>
-        <div class="">
-            Target Language Code: {{ project.target_lang }}
+        <div class="w-1/2 text-right">
+            <a href="delete/">
+                <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-md my-3">
+                    Delete Project
+                </button>
+            </a>
         </div>
+    </div>
         <hr />
         <h2 class="text-2xl font-bold my-3">Sentences:</h2>
         <div class="w-full flex">

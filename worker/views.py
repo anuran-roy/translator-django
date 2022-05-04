@@ -3,9 +3,12 @@ from django.http import HttpResponse, HttpResponseRedirect
 from scripts import translate, scrape, parser
 from typing import List, Dict, Tuple, Any
 
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
 from worker.models import Project, Sentence
 from worker.forms.forms import TranslationForm, UserAuthForm
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, DeleteView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.contrib.auth.views import (
@@ -23,6 +26,7 @@ from django.utils.timezone import now
 def index(request) -> HttpResponse:
     # return HttpResponse("Hello, world. You're at the translator index.")
     return render(request, "pages/home.html")
+
 
 @login_required
 def translate_sample(request) -> HttpResponse:
@@ -48,41 +52,43 @@ def translate_sample(request) -> HttpResponse:
     print(translated_strings)
     return HttpResponse("<br>".join(translated_strings))
 
+
 @login_required
 def view_project(request, project_pk: int) -> HttpResponse:
     return HttpResponse("Project Page!")
 
-@login_required
-def process_input(received_data: Dict[str, Any]) -> None:
+
+@receiver(post_save, sender=Project)
+def process_input(sender, instance, **kwargs) -> Any:
     try:
-        wiki_title: str = received_data["wiki_title"]
+        print("\n\nprocess_input() triggered!\n\n")
+        wiki_title: str = instance.wiki_title
+        print(f"wiki_title = {wiki_title}")
         data: str = scrape.scrape_summary(title=wiki_title)
+        print(f"wiki_data = {data}")
+
+        print("\nParsing the current project's data...\n")
 
         parsed_data: List[str] = (
             parser.parse(to_parse=data, lang="en") if data != "ERROR!" else "ERROR!"
         )
-        target_lang: str = received_data["target_lang"]
 
-        newProject = Project(
-            wiki_title=wiki_title,
-            target_lang=target_lang,
-            modified_on=now(),
-            accessible_to=received_data["user"],
-        )
-        newProject.save()
-
-        # translated_strings: List[str] = []
+        print(f"Parsed Data = {parsed_data}")
+        newProject = instance
 
         for i in parsed_data:
             newSentence = Sentence(
                 project_id=newProject,
                 original_sentence=i,
                 translated_sentence="",
+                accessible_to=instance.accessible_to,
             )
             newSentence.save()
 
+        # return newProject
     except Exception as e:
         print(f"Error occured. Details: {e}")
+
 
 @login_required
 def create_project(request) -> HttpResponse:
@@ -114,18 +120,16 @@ class CreateProject(LoginRequiredMixin, CreateView):
         self.object = form.save(commit=False)
         self.object.accessible_to = self.request.user
         print(f"Now it's accessible to : {self.request.user}")
-        # self.object.save() # Not required since process_input is saving it
-
-        process_input(
-            {
-                "wiki_title": form.cleaned_data["wiki_title"],
-                "target_lang": form.cleaned_data["target_lang"],
-                "user": self.request.user,
-            }
-        )
+        
+        self.object.save()
 
         return HttpResponseRedirect(self.get_success_url())
 
+
+class DeleteProject(LoginRequiredMixin, DeleteView):
+    model = Project
+    success_url: str = "/projects/"
+    template_name: str = "pages/delete_project.html"
 
 class ListProjects(LoginRequiredMixin, ListView):
     model = Project
@@ -143,19 +147,26 @@ class ListProjects(LoginRequiredMixin, ListView):
         else:
             return Project.objects.filter(accessible_to=self.request.user)
 
+
 @login_required
 def get_project_details(request, project_pk: int) -> HttpResponse:
-    sentences = Sentence.objects.filter(project_id=project_pk)
-    project = Project.objects.filter(id=project_pk).filter(accessible_to=request.user).first()
-
-    return render(
-        request,
-        "pages/project_details.html",
-        {
-            "sentences": sentences,
-            "project": project,
-        },
+    sentences = Sentence.objects.filter(project_id=project_pk).filter(accessible_to=request.user)
+    project = (
+        Project.objects.filter(id=project_pk).filter(accessible_to=request.user).first()
     )
+
+    if project is None:
+        return render(request, 'pages/404.html')
+    else:
+        return render(
+            request,
+            "pages/project_details.html",
+            {
+                "sentences": sentences,
+                "project": project,
+            },
+        )
+
 
 @login_required
 def modify_translation(request, project_pk: int) -> HttpResponse:

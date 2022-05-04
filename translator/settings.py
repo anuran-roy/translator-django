@@ -19,17 +19,15 @@ from sentry_sdk.integrations.django import DjangoIntegration
 load_dotenv()  # Loading the environment variables
 
 sentry_sdk.init(
-    dsn=os.environ.get('SENTRY_DSN'),
+    dsn=os.environ.get("SENTRY_DSN"),
     integrations=[DjangoIntegration()],
-
     # Set traces_sample_rate to 1.0 to capture 100%
     # of transactions for performance monitoring.
     # We recommend adjusting this value in production.
     traces_sample_rate=1.0,
-
     # If you wish to associate users to errors (assuming you are using
     # django.contrib.auth) you may enable sending PII data.
-    send_default_pii=True
+    send_default_pii=True,
 )
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -97,12 +95,12 @@ WSGI_APPLICATION = "translator.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2", # "django.db.backends.sqlite3",
-        'NAME': "d4ig0n45g3be29", # os.environ.get("DB_NAME"),
-        'USER': "jgmtfpzzlaqfka", # os.environ.get("DB_USER"),
-        'PASSWORD': "01f35ffa8c14ac3f461b6cb0b8979fac341e278bed9022e40025d929140e7489", # os.environ.get("DB_PASSWORD"),
-        'HOST': "ec2-3-231-82-226.compute-1.amazonaws.com", # os.environ.get("DB_HOST"),
-        'PORT': os.environ.get("DB_PORT"),
+        "ENGINE": "django.db.backends.postgresql_psycopg2",  # "django.db.backends.sqlite3",
+        "NAME": "d4ig0n45g3be29",  # os.environ.get("DB_NAME"),
+        "USER": "jgmtfpzzlaqfka",  # os.environ.get("DB_USER"),
+        "PASSWORD": "01f35ffa8c14ac3f461b6cb0b8979fac341e278bed9022e40025d929140e7489",  # os.environ.get("DB_PASSWORD"),
+        "HOST": "ec2-3-231-82-226.compute-1.amazonaws.com",  # os.environ.get("DB_HOST"),
+        "PORT": os.environ.get("DB_PORT"),
     }
 }
 

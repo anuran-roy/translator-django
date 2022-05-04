@@ -47,9 +47,10 @@ class Sentence(models.Model):
     translated_sentence = models.TextField(blank=True)
 
     created_on = models.DateTimeField(auto_now_add=True)
+    accessible_to = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
         return f"Sentence of project {self.project_id}"
 
     class Meta:
-        ordering = ("-created_on",)
+        ordering = ("created_on",)
