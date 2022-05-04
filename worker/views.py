@@ -25,7 +25,14 @@ from django.utils.timezone import now
 @login_required
 def index(request) -> HttpResponse:
     # return HttpResponse("Hello, world. You're at the translator index.")
-    return render(request, "pages/home.html")
+    sentences_count: int = Sentence.objects.filter(accessible_to=request.user).count()
+    projects_count: int = Project.objects.filter(accessible_to=request.user).count()
+
+    return render(request, "pages/home.html", {
+        "projects_count": projects_count,
+        "sentences_count": sentences_count,
+        "user": request.user,
+    })
 
 
 @login_required

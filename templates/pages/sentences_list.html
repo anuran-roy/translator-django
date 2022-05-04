@@ -1,6 +1,25 @@
 {% extends "partials/with_sidebar.html" %}
-{% block title %}Projects List{% endblock %}
-{% block sidebar_content %}{% endblock %}
+{% block title %}Sentences List{% endblock %}
+{% block sidebar_content %}
+    <div class="flex flex-col my-3 border-2 px-3 py-1 border-gray-400 rounded-md">
+        <h3 class="font-bold my-1">Language Code Index:</h3>
+        <p class="mx-3">
+            <strong>bn</strong>: Bengali<br />
+            <strong>gu</strong>: Gujarati<br />
+            <strong>hi</strong>: Hindi<br />
+            <strong>kn</strong>: Kannada<br />
+            <strong>ml</strong>: Malayalam<br />
+            <strong>mr</strong>: Marathi<br />
+            <strong>ne</strong>: Nepali<br />
+            <strong>or</strong>: Oriya<br />
+            <strong>pa</strong>: Panjabi<br />
+            <strong>si</strong>: Sinhala<br />
+            <strong>ta</strong>: Tamil<br />
+            <strong>te</strong>: Telugu<br />
+            <strong>ur</strong>: Urdu<br />
+        </p>
+    </div>
+{% endblock %}
 {% block main_content %}
 <div class="w-screen align-items-right my-5">
     <a class="text-right px-3 py-3 text-gray-800 font-bold rounded-xl border-2 bg-white hover:bg-gray-800 hover:text-white" href="new/">
@@ -14,8 +33,9 @@
             <div class="py-2 px-3 rounded-md border-2 hover:border-r-2 hover:shadow-lg">
                 Associated Project ID: {{ i.project_id.id }}<br />
                 Sentence ID: {{ i.id }}<br />
-                Original text: {{ i.original_sentence }}<br />
-                Translated Text: {{ i.translated_sentence }}
+                Original text: {{ i.original_sentence|truncatechars:30 }}<br />
+                Translated Text: {{ i.translated_sentence|truncatechars:30 }}<br />
+                Translated Language Code: {{ i.project_id.target_lang }}
             </div>
         <!-- </a> -->
     {% endfor %}
