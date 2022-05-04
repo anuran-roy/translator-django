@@ -9,14 +9,15 @@
 </div>
 <hr />
 <div class="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-1">
-    {% for i in projects %}
-    <a href="/projects/{{i.id}}/" class="mx-3 my-2">
-        <div class="py-2 px-3 rounded-md border-2 hover:border-r-2 hover:shadow-lg">
-            Project ID: {{ i.id }}<br />
-            Title: {{ i.wiki_title }}<br />
-            Target Language Code: {{ i.target_lang }}
-        </div>
-    </a>
+    {% for i in sentences %}
+        <!-- <a href="/sentences/{{i.id}}/" class="mx-3 my-2"> -->
+            <div class="py-2 px-3 rounded-md border-2 hover:border-r-2 hover:shadow-lg">
+                Associated Project ID: {{ i.project_id.id }}<br />
+                Sentence ID: {{ i.id }}<br />
+                Original text: {{ i.original_sentence }}<br />
+                Translated Text: {{ i.translated_sentence }}
+            </div>
+        <!-- </a> -->
     {% endfor %}
 </div>
 {% endblock %}

@@ -9,17 +9,22 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('worker', '0004_remove_project_accessible_to_project_accessible_to'),
+        ("worker", "0004_remove_project_accessible_to_project_accessible_to"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='sentence',
-            options={'ordering': ('created_on',)},
+            name="sentence",
+            options={"ordering": ("created_on",)},
         ),
         migrations.AddField(
-            model_name='sentence',
-            name='accessible_to',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL),
+            model_name="sentence",
+            name="accessible_to",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
     ]

@@ -120,7 +120,7 @@ class CreateProject(LoginRequiredMixin, CreateView):
         self.object = form.save(commit=False)
         self.object.accessible_to = self.request.user
         print(f"Now it's accessible to : {self.request.user}")
-        
+
         self.object.save()
 
         return HttpResponseRedirect(self.get_success_url())
@@ -131,6 +131,7 @@ class DeleteProject(LoginRequiredMixin, DeleteView):
     success_url: str = "/projects/"
     template_name: str = "pages/delete_project.html"
 
+
 class ListProjects(LoginRequiredMixin, ListView):
     model = Project
     template_name: str = "pages/projects_list.html"
@@ -139,7 +140,7 @@ class ListProjects(LoginRequiredMixin, ListView):
     #     "__all__"
     # )
     context_object_name = "projects"
-    paginate_by: int = 5
+    # paginate_by: int = 5
 
     def get_queryset(self):
         if self.request.user.is_superuser:
@@ -148,15 +149,32 @@ class ListProjects(LoginRequiredMixin, ListView):
             return Project.objects.filter(accessible_to=self.request.user)
 
 
+class ListSentences(LoginRequiredMixin, ListView):
+    model = Sentence
+    template_name: str = "pages/sentences_list.html"
+    queryset = Sentence.objects.all()
+
+    context_object_name: str = "sentences"
+    # paginate_by: int = 5
+
+    def get_queryset(self):
+        if self.request.user.is_superuser:
+            return Sentence.objects.all()
+        else:
+            return Sentence.objects.filter(accessible_to=self.request.user)
+
+
 @login_required
 def get_project_details(request, project_pk: int) -> HttpResponse:
-    sentences = Sentence.objects.filter(project_id=project_pk).filter(accessible_to=request.user)
+    sentences = Sentence.objects.filter(project_id=project_pk).filter(
+        accessible_to=request.user
+    )
     project = (
         Project.objects.filter(id=project_pk).filter(accessible_to=request.user).first()
     )
 
     if project is None:
-        return render(request, 'pages/404.html')
+        return render(request, "pages/404.html")
     else:
         return render(
             request,

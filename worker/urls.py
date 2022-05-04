@@ -36,6 +36,7 @@ urlpatterns = [
         views.modify_translation,
         name="modify_translation",
     ),
+    path("sentences/", views.ListSentences.as_view(), name="sentences"),
     path("login/", views.UserLogin.as_view(), name="login"),
     path("logout/", LogoutView.as_view(), name="logout"),
     # path("project/<int:pk>/tasks/<int:tasks_pk>", views.view_translation, name="view_translations"),
